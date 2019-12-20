@@ -1,5 +1,6 @@
 <template>
   <div class="login">
+
     <!-- elementUI的标签 -->
     <el-card class="box-card">
       <div class='title' style="margin-bottom:20px;">
@@ -62,10 +63,22 @@ export default {
   },
   methods: {
     submitLogin () {
-      this.$refs.myForm.validate(function (isOK) {
+      this.$refs.myForm.validate((isOK) => {
         if (isOK) {
-          // 校验通过
-          console.log('漂亮')
+          // 校验通过,调用接口
+          this.$axios({
+            url: '/authorizations', // 请求地址没设置自动默认get类型
+            method: 'POST',
+            data: this.loginFrom
+          }).then(result => {
+            window.localStorage.setItem('user-token', result.data.data.token)
+            this.$router.push('/')
+          }).catch(() => {
+            this.$message({
+              message: '手机号或验证码不正确',
+              type: 'warning'
+            })
+          })
         }
       })
     }
