@@ -7,14 +7,14 @@
     </el-col>
     <el-col class="right" :span='12'>
       <el-row type="flex" justify="end" align="middle">
-          <img src="../../assets/img/header.jpg" alt="sss">
+          <img :src="userInfo.photo ? userInfo.photo : defaultImg" alt="sss">
           <!-- 下拉菜单 -->
-          <el-dropdown>
-          <span>墨无白</span>
+          <el-dropdown @command="handleCommand">
+          <span>{{userInfo.name}}</span>
           <el-dropdown-menu slot='dropdown'>
-              <el-dropdown-item>个人信息</el-dropdown-item>
-              <el-dropdown-item>git地址</el-dropdown-item>
-              <el-dropdown-item>退出</el-dropdown-item>
+              <el-dropdown-item command="info">个人信息</el-dropdown-item>
+              <el-dropdown-item command="git">git地址</el-dropdown-item>
+              <el-dropdown-item command="lgout">退出</el-dropdown-item>
           </el-dropdown-menu>
           </el-dropdown>
       </el-row>
@@ -24,7 +24,35 @@
 
 <script>
 export default {
+  data () {
+    return {
+      userInfo: {},
+      defaultImg: require('../../assets/img/header.jpg') // 先将图片传换成变量
+    }
+  },
+  methods: {
+    handleCommand (command) {
+      if (command === 'info') {
 
+      } else if (command === 'git') {
+        window.location.href = 'https://github.com/'
+      } else if (command === 'lgout') {
+        window.localStorage.removeItem('user-token')
+        this.$router.push('/login')
+      }
+    }
+  },
+  created () {
+    let token = localStorage.getItem('user-token')
+    this.$axios({
+      url: '/user/profile',
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    }).then(result => {
+      this.userInfo = result.data.data
+    })
+  }
 }
 </script>
 
