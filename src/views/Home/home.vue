@@ -1,5 +1,5 @@
 <template>
-  <el-carousel height="500px" indicator-position="outside">
+  <el-carousel class="lun" height="500px" indicator-position="outside">
     <el-carousel-item v-for="item in list" :key="item">
         <img :src="item" alt="">
       <h3>{{ item }}</h3>
@@ -28,5 +28,12 @@ export default {
 
   .el-carousel__item:nth-child(2n+1) {
     background-color: #d3dce6;
+  }
+  .lun{
+      img{
+          width: 100%;
+          height: 100%;
+          border-radius: 8px;
+      }
   }
 </style>
