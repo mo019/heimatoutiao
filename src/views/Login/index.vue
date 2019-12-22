@@ -71,14 +71,14 @@ export default {
             method: 'POST',
             data: this.loginFrom
           }).then(result => {
-            window.localStorage.setItem('user-token', result.data.data.token)
+            window.localStorage.setItem('user-token', result.data.token)
             this.$router.push('/')
-          }).catch(() => {
-            this.$message({
-              message: '手机号或验证码不正确',
-              type: 'warning'
-            })
-          })
+          })// .catch(() => {
+          //   this.$message({
+          //     message: '手机号或验证码不正确',
+          //     type: 'warning'
+          //   })
+          // })
         }
       })
     }
