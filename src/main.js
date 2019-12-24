@@ -8,7 +8,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 import './assets/styles/index.less'
 import axios from './utils/request.js'
 
-Vue.prototype.$axios = axios // 赋值给全局对象
+// 赋值给全局对象,给全局中的Vue添加一个属性叫$axios值是axios
+Vue.prototype.$axios = axios
 Vue.use(ElementUI)
 Vue.use(Components)
 // 知识盲点

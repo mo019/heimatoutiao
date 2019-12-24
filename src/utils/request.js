@@ -8,7 +8,6 @@ axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0'
 axios.interceptors.request.use(function (config) {
   // 执行请求没问题
 //   config 请求参数配置
-  console.log(config)
   let token = window.localStorage.getItem('user-token')
   config.headers.Authorization = 'Bearer ' + token
   return config // 表示会用该config请求进行后台操作
