@@ -2,6 +2,7 @@
 import axios from 'axios'
 import router from '../router/index'
 import { Message } from 'element-ui'
+import JSONBig from 'json-bigint'
 
 axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0'
 // 请求拦截
@@ -15,6 +16,11 @@ axios.interceptors.request.use(function (config) {
   // 执行请求错误
 
 })
+axios.defaults.transformResponse = [function (data) {
+  // debugger
+  let result = JSONBig.parse(data)
+  return result
+}]
 // 响应拦截器
 axios.interceptors.response.use(function (response) {
   return response.data ? response.data : {}
@@ -40,6 +46,7 @@ axios.interceptors.response.use(function (response) {
       break
   }
   Message({ type: 'warning', message })
+  return Promise.reject(error) // 只要reject是错误的 => 代码就会运行到catch的里面
 })
 // 导出
 export default axios
