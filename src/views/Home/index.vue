@@ -5,8 +5,8 @@
         <el-aside style="min-height:100vh;background-color:#353b4e;width:230px;">
              <layout-aside></layout-aside>
         </el-aside>
-    <!-- 右边 -->
   <el-container>
+    <!-- 上边 -->
       <el-header>
           <layout-header></layout-header>
       </el-header>
